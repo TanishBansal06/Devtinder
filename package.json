@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "Tanish Bansal",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon src/app.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

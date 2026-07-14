@@ -2,6 +2,10 @@ const express = require("express");
 
 const app = express();
 
+app.use("/",(req,res,next)=>{
+    console.log("Home route is working");
+    next();
+});
 
 app.use("/user",(req,res,next)=>{
     console.log("User route is working");
@@ -11,7 +15,6 @@ app.use("/user",(req,res,next)=>{
 (req,res,next)=>{
     console.log("User route2 is working");
     // res.send("User is found2");
-    next();
     },
 (req,res,next)=>{
     console.log("User route2 is working");
