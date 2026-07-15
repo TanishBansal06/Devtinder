@@ -1,26 +1,31 @@
 const express = require("express");
 
 const app = express();
+const {adminauth,userauth} = require("./middlewares/auth");
+app.use("/admin",adminauth);
 
-app.use("/",(req,res,next)=>{
-    console.log("Home route is working");
-    next();
+app.get("/user/login",(req,res,next)=>{
+    res.send("User Login Route");
 });
 
-app.use("/user",(req,res,next)=>{
-    console.log("User route is working");
-    // res.send("User is found");
-    next();
-},
-(req,res,next)=>{
-    console.log("User route2 is working");
-    // res.send("User is found2");
-    },
-(req,res,next)=>{
-    console.log("User route2 is working");
-    res.send("User is found3");
-    });
+app.get("/user",userauth,(req,res,next)=>{
+    res.send("User Route");
+});
+
+app.get("/admin/getallrequest",(req,res,next)=>{
+    res.send("Get All Request Route");
+});
+
+app.get("/admin/deleteuser",(req,res,next)=>{
+    res.send("Delete User Route");
+});
 
 app.listen(7777,()=>{
     console.log("Server is running on port 7777");
 });
+
+
+// git status
+// git add .
+// git commit -m "Describe what you changed"
+// git push origin main
