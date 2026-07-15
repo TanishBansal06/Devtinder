@@ -93,7 +93,7 @@ connectDB()
     console.error(err);
   });
 
-git status
-git add .
-git commit -m "Describe what you changed"
-git push origin main
+// git status
+// git add .
+// git commit -m "Describe what you changed"
+// git push origin main
