@@ -71,12 +71,12 @@ app.patch("/user", async (req, res) => {
     const data = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate({ _id: userId }, data, { returnDocument: "before" ,runvalidators: true});
+        const user = await User.findByIdAndUpdate({ _id: userId }, data, { returnDocument: "before" ,runvalidators: true});//runvalidators is used to run the validators defined in the schema while updating the document
         console.log(user)
         res.send("User updated successfully")
 
     } catch (err) {
-        res.status(400).send("Something went wrong")
+        res.status(400).send("update failed" + err.message);
     }
 })
 
@@ -93,7 +93,7 @@ connectDB()
     console.error(err);
   });
 
-// git status
-// git add .
-// git commit -m "Describe what you changed"
-// git push origin main
+git status
+git add .
+git commit -m "Describe what you changed"
+git push origin main
