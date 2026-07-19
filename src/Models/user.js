@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const userSchema =  new mongoose.Schema({
     firstName: {
@@ -77,6 +79,20 @@ const userSchema =  new mongoose.Schema({
     timestamps: true
 });
 
+userSchema.methods.getJwt = async function(){//not use access arrow function because we need to use this keyword
+  const user = this;
+  const token = await jwt.sign({userId: user._id}, "DEV@Tinder$798", {expiresIn: "1d"});
+    return token;
+}
+
+userSchema.methods.validatePassword = async function(passwordbyuser){
+    const user = this;
+    const isMatch = await bcrypt.compare(passwordbyuser, user.password);//not interchangeable because the first argument is the plain text password and the second argument is the hashed password
+    return isMatch;
+}
+
 const User = mongoose.model("User", userSchema);
+//mongoose automatically looks for the plural, lowercased version of your model name. 
+//For example, if you use "User" for your model name, the corresponding collection name will be "users".
 
 module.exports = User;
