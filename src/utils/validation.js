@@ -19,4 +19,31 @@ const validateLoginData =  (req)=>{
     }
 }
 
-module.exports = {validateSignUpData, validateLoginData};
+const validateEditProfileData = (req) => {
+    const data = req.body;
+    const {photoUrl} = req.body;
+    if(!validator.isURL(photoUrl)){
+        throw new Error("Invalid credentials")
+    }
+    const AllowedUpdates = ["age", "photoUrl", "about" ,"skills","gender"];
+    const isUpdateAllowed = Object.keys(data).every((k)=> AllowedUpdates.includes(k));
+    if (!isUpdateAllowed) {
+        throw new Error("Update not allowed");
+    }
+    return isUpdateAllowed;
+}
+
+const validatepassword = (req) => {
+    const {password} = req.body;
+    const AllowedUpdates = ["password"];
+    if(validator.isStrongPassword(password) === false){
+        throw new Error("Password is not strong enough");
+    }
+    const isUpdateAllowed = Object.keys(req.body).every((k)=> AllowedUpdates.includes(k));
+    if (!isUpdateAllowed) {
+        throw new Error("Update not allowed");
+    }
+    return isUpdateAllowed;
+}
+
+module.exports = {validateSignUpData, validateLoginData, validateEditProfileData, validatepassword};
