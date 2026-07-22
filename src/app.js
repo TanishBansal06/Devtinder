@@ -27,8 +27,3 @@ connectDB()
     console.log("Database Connection Failed");
     console.error(err);
   });
-
-// git status
-// git add .
-// git commit -m "Implemented user authentication and validation for signup and login routes"
-// git push origin main

@@ -18,7 +18,7 @@ const userSchema =  new mongoose.Schema({
         type: String,
         lowercase: true,
         required : true,
-        unique: true,
+        unique: true,//mongodb automatically create because of unique or we can write index:true
         trim: true,
         validate(value){
             if(!validator.isEmail(value)){
@@ -78,6 +78,8 @@ const userSchema =  new mongoose.Schema({
 {
     timestamps: true
 });
+
+userSchema.index({firstName:1,lastName:1});
 
 userSchema.methods.getJwt = async function(){//not use access arrow function because we need to use this keyword
   const user = this;
