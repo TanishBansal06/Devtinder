@@ -25,6 +25,15 @@ profileRouter.patch("/profile/edit",userauth, async (req,res) => {
         const {_id} = loggedInuser;
         const data = req.body;
         const updatedUser = await User.findByIdAndUpdate({ _id }, data, {returnDocument: "after", runValidators: true});
+
+// const user = req.user;
+
+// Object.keys(data).forEach((key) => {
+//     user[key] = data[key];            ---------> or we can do this
+// });
+
+// await user.save();
+
         res.json({message : `${loggedInuser.firstName} , your profile updated successfuly`,
             data : updatedUser,
     });
@@ -43,7 +52,7 @@ profileRouter.patch("/profile/changepass",userauth, async (req,res) =>{
         const hashedPassword = await bcrypt.hash(password, 12);
         const loggedInuser = req.user;
         const {_id} = loggedInuser;
-        const updatedUser = await User.findByIdAndUpdate({ _id }, {password : hashedPassword}, {returnDocument: "after", runValidators: true});
+        const updatedUser = await User.findByIdAndUpdate({ _id }, {password : hashedPassword}, {returnDocument: "after", runValidators: true});//instead of returnDocument: "after" we cn write new:true
         res.send("password is updated to: " + password);
     }
     catch(error){
