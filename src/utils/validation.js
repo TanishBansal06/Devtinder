@@ -17,13 +17,13 @@ const validateLoginData =  (req)=>{
     if(validator.isEmail(emailId) === false){
         throw new Error("Invalid email");
     }
+    return true;
 }
 
 const validateEditProfileData = (req) => {
     const data = req.body;
-    const {photoUrl} = req.body;
-    if(!validator.isURL(photoUrl)){
-        throw new Error("Invalid credentials")
+    if (data.photoUrl && !validator.isURL(data.photoUrl)) {
+        throw new Error("Invalid Photo URL");
     }
     const AllowedUpdates = ["age", "photoUrl", "about" ,"skills","gender"];
     const isUpdateAllowed = Object.keys(data).every((k)=> AllowedUpdates.includes(k));
